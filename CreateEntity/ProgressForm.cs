@@ -28,10 +28,16 @@ namespace CreateEntity
         {
             if (e.Error != null)
             {
-                MessageBox.Show(e.Error.Message, "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(DialogResult.OK== MessageBox.Show(e.Error.Message, "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Error))
+                {
+                    Close();
+                }
             }
-            Text = "生成完毕";
-            okBtn.Enabled = true;
+            else
+            {
+                Text = "生成完毕";
+                okBtn.Enabled = true;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

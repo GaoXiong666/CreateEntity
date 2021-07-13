@@ -8,10 +8,12 @@ namespace CreateEntity
 {
     public partial class MainForm : Form
     {
+        private readonly ProgressForm _pgForm;
         public MainForm()
         {
             InitializeComponent();
             comboBox1.DataSource = Enum.GetNames(typeof(DataBaseType));
+            _pgForm = new ProgressForm(this, backgroundWorker1);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -41,17 +43,15 @@ namespace CreateEntity
                 return;
             }
             
-            if (!testCon())
-            {
-                return;
-            }
+            //if (!testCon())
+            //{
+            //    return;
+            //}
 
             //隐藏自己
             Hide();
-
-            ProgressForm form = new ProgressForm(this, backgroundWorker1);
             backgroundWorker1.RunWorkerAsync();  //运行backgroundWorker组件
-            form.ShowDialog();
+            _pgForm.ShowDialog();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)

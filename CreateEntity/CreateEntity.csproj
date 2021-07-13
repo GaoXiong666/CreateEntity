@@ -14,10 +14,11 @@
 
   <ItemGroup>
     <None Remove="EntityTemplate.txt" />
+    <None Remove="files\EntityTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="EntityTemplate.txt" />
+    <EmbeddedResource Include="files\EntityTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>

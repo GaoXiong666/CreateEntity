@@ -85,10 +85,10 @@ namespace CreateEntity
             }
 
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
-            currentAssembly.GetManifestResourceNames();
+            //currentAssembly.GetManifestResourceNames();
             string content = string.Empty;
             string templateName = "EntityTemplate.txt";
-            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.{templateName}"))
+            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.files.{templateName}"))
             {
                 if (stream != null)
                 {
