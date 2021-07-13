@@ -17,11 +17,11 @@ namespace CreateEntity
         List<TableColumn> GetTableColumn(DbConnection conn, Table table);
     }
 
-    public class EntityFactory
+    public class Builder
     {
         private readonly IDB db;
 
-        public EntityFactory(DataBaseType type)
+        public Builder(DataBaseType type)
         {
             if (type == DataBaseType.Oracle)
             {

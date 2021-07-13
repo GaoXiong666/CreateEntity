@@ -42,11 +42,11 @@ namespace CreateEntity
                 MessageBox.Show("请选择生成路径", "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            
-            //if (!testCon())
-            //{
-            //    return;
-            //}
+
+            if (!testCon())
+            {
+                return;
+            }
 
             //隐藏自己
             Hide();
@@ -58,7 +58,7 @@ namespace CreateEntity
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            EntityFactory factory = new EntityFactory(Helper.dbType);
+            Builder factory = new Builder(Helper.dbType);
             factory.Create(worker, e);
             Thread.Sleep(100);
         }
