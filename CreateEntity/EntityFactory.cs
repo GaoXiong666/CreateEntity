@@ -17,11 +17,11 @@ namespace CreateEntity
         List<TableColumn> GetTableColumn(DbConnection conn, Table table);
     }
 
-    public class Builder
+    public class EntityFactory
     {
         private readonly IDB db;
 
-        public Builder(DataBaseType type)
+        public EntityFactory(DataBaseType type)
         {
             if (type == DataBaseType.Oracle)
             {
@@ -49,7 +49,7 @@ namespace CreateEntity
                     }
                     List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i]);
                     BuildClass(tables[i], tableColumn);
-
+                    //汇报进度
                     worker.ReportProgress((int)((double)(i + 1) / tables.Count * 100));
                 }
 

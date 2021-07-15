@@ -58,7 +58,7 @@ namespace CreateEntity
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            Builder factory = new Builder(Helper.dbType);
+            EntityFactory factory = new EntityFactory(Helper.dbType);
             factory.Create(worker, e);
             Thread.Sleep(100);
         }

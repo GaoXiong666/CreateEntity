@@ -31,10 +31,14 @@ namespace CreateEntity
             //{
             //    sb.AppendLine($"\t\t[Required(ErrorMessage = \"{column.Comments ?? column.ColumnName}不允许为空\")]\n");
             //}
-
             if (column.CSharpType == "string")
             {
-                sb.AppendLine($"\t\t[StringLength({column.DataLength}, ErrorMessage = \"{column.Comments ?? column.CSharpName}长度不能超出{column.DataLength}字符\")]");
+                string comments = column.Comments;
+                if (string.IsNullOrEmpty(comments))
+                {
+                    comments = column.CSharpName;
+                }
+                sb.AppendLine($"\t\t[StringLength({column.DataLength}, ErrorMessage = \"{comments}长度不能超出{column.DataLength}字符\")]");
             }
 
 
