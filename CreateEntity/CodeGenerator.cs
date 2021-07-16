@@ -16,8 +16,11 @@ namespace CreateEntity
         {
             StringBuilder sb = new StringBuilder();
 
+            //字符集不匹配的话乱码可能会出现换行符号，导致排版混乱或报错
+            string comments = column.Comments.Replace("\n", "").Replace("\r", "");
+
             sb.AppendLine("\t\t/// <summary>");
-            sb.AppendLine("\t\t/// " + column.Comments);
+            sb.AppendLine("\t\t/// " + comments);
             sb.AppendLine("\t\t/// </summary>");
 
             if (column.ConstraintType == "P")
@@ -33,7 +36,6 @@ namespace CreateEntity
             //}
             if (column.CSharpType == "string")
             {
-                string comments = column.Comments;
                 if (string.IsNullOrEmpty(comments))
                 {
                     comments = column.CSharpName;
