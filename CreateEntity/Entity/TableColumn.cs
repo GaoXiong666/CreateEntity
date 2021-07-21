@@ -1,13 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace CreateEntity
+﻿namespace CreateEntity
 {
-    public class Table
-    {
-        public string Name { get; set; }
-        public string CSharpName { get; set; }
-    }
-
     public class TableColumn
     {
         /// <summary>

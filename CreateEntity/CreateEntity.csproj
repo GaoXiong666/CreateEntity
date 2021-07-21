@@ -14,10 +14,12 @@
 
   <ItemGroup>
     <None Remove="EntityTemplate.txt" />
+    <None Remove="files\EFCoreDbContext.txt" />
     <None Remove="files\EntityTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="files\EFCoreDbContext.txt" />
     <EmbeddedResource Include="files\EntityTemplate.txt" />
   </ItemGroup>
 

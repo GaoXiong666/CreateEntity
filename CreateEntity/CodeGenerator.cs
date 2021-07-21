@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CreateEntity
@@ -55,6 +59,57 @@ namespace CreateEntity
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 生成实体类文件
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="columns"></param>
+        public static void BuildEntityClass(Table table, List<TableColumn> columns)
+        {
+            columns.ForEach(x =>
+            {
+                string csharpType = DataTypeMapping.dbColumnDataTypes.FirstOrDefault(t =>
+                        t.DatabaseType == Helper.dbType && t.ColumnTypes.Split(',').Any(p =>
+                            p.Trim().Equals(x.DataType, StringComparison.OrdinalIgnoreCase)))?.CSharpType;
+                if (string.IsNullOrEmpty(csharpType))
+                {
+                    throw new Exception($"未从字典中找到\"{x.DataType}\"对应的C#数据类型");
+                }
+
+                x.CSharpType = csharpType;
+            });
+
+            //生成属性
+            StringBuilder sb = new StringBuilder();
+            foreach (TableColumn column in columns)
+            {
+                string tmp = GenerateEntityProperty(column);
+                sb.AppendLine(tmp);
+            }
+
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            //currentAssembly.GetManifestResourceNames();
+            string content = string.Empty;
+            string templateName = "EntityTemplate.txt";
+            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.files.{templateName}"))
+            {
+                if (stream != null)
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                }
+            }
+
+            content = content.Replace("{ModelsNamespace}", Helper.nameSpace)
+               .Replace("{ModelClassName}", table.CSharpName)
+               .Replace("{DbTableName}", table.Name)
+               .Replace("{ModelProperties}", sb.ToString());
+
+            string path = Helper.path + "\\" + table.CSharpName + ".cs";
+            WriteAndSave(path, content);
+        }
         /// <summary>
         /// 写文件
         /// </summary>
