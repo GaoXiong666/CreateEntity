@@ -87,21 +87,8 @@ namespace CreateEntity
                 sb.AppendLine(tmp);
             }
 
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-            //currentAssembly.GetManifestResourceNames();
-            string content = string.Empty;
-            string templateName = "EntityTemplate.txt";
-            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.files.{templateName}"))
-            {
-                if (stream != null)
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        content = reader.ReadToEnd();
-                    }
-                }
-            }
-
+            string content = GetTemplateContext("EntityTemplate.txt");
+            
             content = content.Replace("{ModelsNamespace}", Helper.nameSpace)
                .Replace("{ModelClassName}", table.CSharpName)
                .Replace("{DbTableName}", table.Name)
@@ -110,6 +97,51 @@ namespace CreateEntity
             string path = Helper.path + "\\" + table.CSharpName + ".cs";
             WriteAndSave(path, content);
         }
+
+        /// <summary>
+        /// 生成EFCoreDbContext文件，和Entity文件在同一路径下
+        /// </summary>
+        /// <param name="tables"></param>
+        public static void BuildEFCoreDbContext(List<Table> tables)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(var table in tables)
+            {
+                string name = table.CSharpName;
+                sb.AppendLine($"\t\tpublic virtual DbSet<{name}> {name} " + "{ get; set; }");
+            }
+
+            string content = GetTemplateContext("EFCoreDbContext.txt");
+
+            content = content.Replace("{Namespace}", Helper.nameSpace)
+               .Replace("{ClassName}", "")
+               .Replace("{Tables}", sb.ToString());
+
+            string path = Helper.path + "\\" + "" + ".cs";
+            WriteAndSave(path, content);
+        }
+
+        /// <summary>
+        /// 获取模板文件内容
+        /// </summary>
+        /// <param name="templateName">模板名</param>
+        /// <returns></returns>
+        public static string GetTemplateContext(string templateName)
+        {
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.files.{templateName}"))
+            {
+                if (stream != null)
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+            return string.Empty;
+        }
+
         /// <summary>
         /// 写文件
         /// </summary>
