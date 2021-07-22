@@ -2,18 +2,17 @@
 using System.ComponentModel;
 using System.Data.Common;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CreateEntity
 {
     public partial class MainForm : Form
     {
-        private readonly ProgressForm _pgForm;
         public MainForm()
         {
             InitializeComponent();
             comboBox1.DataSource = Enum.GetNames(typeof(DataBaseType));
-            _pgForm = new ProgressForm(this, backgroundWorker1);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -50,18 +49,11 @@ namespace CreateEntity
 
             //隐藏自己
             Hide();
-            backgroundWorker1.RunWorkerAsync();  //运行backgroundWorker组件
-            _pgForm.ShowDialog();
+            ProgressForm pgForm = new ProgressForm();
+            pgForm.ShowDialog();
+            Visible = true;
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker worker = sender as BackgroundWorker;
-
-            EntityFactory factory = new EntityFactory(Helper.dbType);
-            factory.Create(worker, e);
-            Thread.Sleep(100);
-        }
 
         //选择路径
         private void button2_Click(object sender, EventArgs e)

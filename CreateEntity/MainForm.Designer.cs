@@ -40,7 +40,6 @@ namespace CreateEntity
             this.testConBtn = new System.Windows.Forms.Button();
             this.lable4 = new System.Windows.Forms.Label();
             this.NameSpace = new System.Windows.Forms.TextBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // button1
@@ -145,12 +144,6 @@ namespace CreateEntity
             this.NameSpace.Size = new System.Drawing.Size(224, 27);
             this.NameSpace.TabIndex = 12;
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -191,7 +184,6 @@ namespace CreateEntity
         private System.Windows.Forms.Button testConBtn;
         private System.Windows.Forms.Label lable4;
         private System.Windows.Forms.TextBox NameSpace;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
