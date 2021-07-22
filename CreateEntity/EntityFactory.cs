@@ -36,15 +36,16 @@ namespace CreateEntity
                 conn.Open();
                 List<Table> tables = db.GetTableAll(conn);
 
+                form.progressBar1.Maximum = tables.Count();
                 for (int i = 0; i < tables.Count(); i++)
                 {
-                    token.ThrowIfCancellationRequested();//结束请求
+                    token.ThrowIfCancellationRequested();//申请取消
 
                     List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i]);
                     CodeGenerator.BuildEntityClass(tables[i], tableColumn);
-                    
+
                     //汇报进度
-                    form.progressBar1.Value= (int)((double)(i + 1) / tables.Count * 100);
+                    form.progressBar1.Value = i + 1;
                 }
             }
         }
