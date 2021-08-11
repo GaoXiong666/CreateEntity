@@ -22,7 +22,7 @@ namespace CreateEntity
             {
                 await Task.Run(() =>
                 {
-                    _factory.Create(this);
+                    _factory.Create(progressBar1);
                     Thread.Sleep(100);
 
                     Text = "生成完毕";

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace CreateEntity
 {
@@ -28,7 +29,7 @@ namespace CreateEntity
             _cts = new CancellationTokenSource();
         }
 
-        public void Create(ProgressForm form)
+        public void Create(ProgressBar pgb)
         {
             var token = _cts.Token;
             using (DbConnection conn = Helper.GetDbConnection())
@@ -36,7 +37,7 @@ namespace CreateEntity
                 conn.Open();
                 List<Table> tables = db.GetTableAll(conn);
 
-                form.progressBar1.Maximum = tables.Count();
+                pgb.Maximum = tables.Count();
                 for (int i = 0; i < tables.Count(); i++)
                 {
                     token.ThrowIfCancellationRequested();//申请取消
@@ -45,7 +46,7 @@ namespace CreateEntity
                     CodeGenerator.BuildEntityClass(tables[i], tableColumn);
 
                     //汇报进度
-                    form.progressBar1.Value = i + 1;
+                    pgb.Value = i + 1;
                 }
             }
         }
