@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CreateEntity.DataBase;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Common;
@@ -21,6 +22,10 @@ namespace CreateEntity
             if (type == DataBaseType.Oracle)
             {
                 db = new Oracle();
+            }
+            else if (type == DataBaseType.SqlServer)
+            {
+                db = new SqlServer();
             }
             else
             {

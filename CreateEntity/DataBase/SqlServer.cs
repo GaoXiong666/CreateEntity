@@ -34,26 +34,29 @@ namespace CreateEntity.DataBase
 
         public List<TableColumn> GetTableColumn(DbConnection conn, Table table)
         {
-            SqlCommand com = new SqlCommand($@"select t.TABLE_NAME,
-                                           t.COLUMN_NAME,
-                                           t.DATA_TYPE,
-                                           t.DATA_LENGTH,
-                                           t.NULLABLE,
-                                           t1.COMMENTS,
-                                           t2.constraint_type
-                                      from user_tab_columns t
-                                      join user_col_comments t1
-                                        on t.TABLE_NAME = '{table.Name}'
-                                       and t1.TABLE_NAME = '{table.Name}'
-                                       and t.COLUMN_NAME = t1.COLUMN_NAME
-                                      left join(select col.COLUMN_NAME, con.CONSTRAINT_TYPE
-                                                   from user_constraints con
-                                                   join user_cons_columns col
-                                                     on con.constraint_name = col.constraint_name
-                                                    and con.constraint_type = 'P'
-                                                    and col.table_name = '{table.Name}'
-                                                    and con.table_name = '{table.Name}') t2
-                                        on t.COLUMN_NAME = t2.column_name", (SqlConnection)conn);
+            SqlCommand com = new SqlCommand($@"SELECT 
+                                                表名       = d.name,--case when a.colorder=1 then d.name else '' end,
+                                                --表说明     = case when a.colorder=1 then isnull(f.value,'') else '' end,
+                                                --字段序号   = a.colorder,
+                                                字段名     = a.name,
+                                                --标识       = case when COLUMNPROPERTY( a.id,a.name,'IsIdentity')=1 then '√'else '' end,
+                                                主键       = case when exists(SELECT 1 FROM sysobjects where xtype='PK' and parent_obj=a.id and name in (
+                                                                 SELECT name FROM sysindexes WHERE indid in( SELECT indid FROM sysindexkeys WHERE id = a.id AND colid=a.colid))) then 'P' else null end,
+                                                类型       = b.name,
+                                                占用字节数 = a.length,
+                                                --长度       = COLUMNPROPERTY(a.id,a.name,'PRECISION'),
+                                                --小数位数   = isnull(COLUMNPROPERTY(a.id,a.name,'Scale'),0),
+                                                允许空     = case when a.isnullable=1 then 'Y'else 'N' end,
+                                                --默认值     = isnull(e.text,''),
+                                                字段说明   = g.[value]
+                                            FROM syscolumns a
+                                            left join systypes b on a.xusertype=b.xusertype
+                                            inner join sysobjects d on a.id=d.id  and d.xtype='U' and  d.name<>'dtproperties'
+                                            left join syscomments e on a.cdefault=e.id
+                                            left join sys.extended_properties g on a.id=G.major_id and a.colid=g.minor_id  
+                                            left join sys.extended_properties f on d.id=f.major_id and f.minor_id=0
+                                            where d.name='{table.Name}'
+                                            order by  a.id,a.colorder", (SqlConnection)conn);
             SqlDataReader reder = com.ExecuteReader();
 
             List<TableColumn> tableColumn = new List<TableColumn>();
