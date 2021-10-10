@@ -15,7 +15,7 @@ namespace CreateEntity.DataBase
             List<Table> tables = new List<Table>();
 
             SqlCommand com = new SqlCommand("SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U'", (SqlConnection)conn);
-            SqlDataReader reder = com.ExecuteReader();
+            using SqlDataReader reder = com.ExecuteReader();
             while (reder.Read())
             {
                 tables.Add(new Table
@@ -56,8 +56,8 @@ namespace CreateEntity.DataBase
                                             left join sys.extended_properties g on a.id=G.major_id and a.colid=g.minor_id  
                                             left join sys.extended_properties f on d.id=f.major_id and f.minor_id=0
                                             where d.name='{table.Name}'
-                                            order by  a.id,a.colorder", (SqlConnection)conn);
-            SqlDataReader reder = com.ExecuteReader();
+                                            order by 主键 desc", (SqlConnection)conn);
+            using SqlDataReader reder = com.ExecuteReader();
 
             List<TableColumn> tableColumn = new List<TableColumn>();
 
@@ -65,13 +65,13 @@ namespace CreateEntity.DataBase
             {
                 tableColumn.Add(new TableColumn
                 {
-                    TableName = reder["TABLE_NAME"].ToString(),
-                    ColumnName = reder["COLUMN_NAME"].ToString(),
-                    DataType = reder["DATA_TYPE"].ToString(),
-                    DataLength = reder["DATA_LENGTH"].ToString(),
-                    Nullable = reder["NULLABLE"].ToString(),
-                    Comments = reder["COMMENTS"].ToString(),
-                    ConstraintType = reder["CONSTRAINT_TYPE"].ToString()
+                    TableName = reder["表名"].ToString(),
+                    ColumnName = reder["字段名"].ToString(),
+                    DataType = reder["类型"].ToString(),
+                    DataLength = reder["占用字节数"].ToString(),
+                    Nullable = reder["允许空"].ToString(),
+                    Comments = reder["字段说明"].ToString(),
+                    ConstraintType = reder["主键"].ToString()
                 });
             }
 

@@ -33,10 +33,12 @@ namespace CreateEntity
             }
             else
             {
-                char[] chr = str.ToLower().ToCharArray();
+                //Oracle命名默认全部大写，与SqlServer不同
+                char[] chr = dbType == DataBaseType.SqlServer? str.ToCharArray()
+                                                              :str.ToLower().ToCharArray();
                 if (chr[0] >= 'a' && chr[0] <= 'z')
                 {
-                    // 利用ASCII码实现大写
+                    // 利用ASCII码实现首字母大写
                     chr[0] = (char)(chr[0] - 32);
                 }
                 sb.Append(chr);

@@ -73,7 +73,7 @@ namespace CreateEntity
                             p.Trim().Equals(x.DataType, StringComparison.OrdinalIgnoreCase)))?.CSharpType;
                 if (string.IsNullOrEmpty(csharpType))
                 {
-                    throw new Exception($"未从字典中找到\"[{x.TableName}]表 {x.DataType}\"对应的C#数据类型");
+                    throw new Exception($"未从字典中找到\"[{x.TableName}]表 [{x.ColumnName}]字段 {x.DataType}\"类型，对应的C#数据类型");
                 }
 
                 x.CSharpType = csharpType;

@@ -11,7 +11,7 @@ namespace CreateEntity
             List<Table> tables = new List<Table>();
 
             OracleCommand com = new OracleCommand("select table_name from user_tables", (OracleConnection)conn);
-            OracleDataReader reder = com.ExecuteReader();
+            using OracleDataReader reder = com.ExecuteReader();
             while (reder.Read())
             {
                 tables.Add(new Table
@@ -50,7 +50,7 @@ namespace CreateEntity
                                                     and col.table_name = '{table.Name}'
                                                     and con.table_name = '{table.Name}') t2
                                         on t.COLUMN_NAME = t2.column_name", (OracleConnection)conn);
-            OracleDataReader reder = com.ExecuteReader();
+            using OracleDataReader reder = com.ExecuteReader();
 
             List<TableColumn> tableColumn = new List<TableColumn>();
 
