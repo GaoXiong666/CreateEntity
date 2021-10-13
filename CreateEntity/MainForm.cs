@@ -104,5 +104,10 @@ namespace CreateEntity
             Application.Exit();
             Environment.Exit(0);
         }
+
+        private void checkReplace_CheckedChanged(object sender, EventArgs e)
+        {
+            Helper.IsReplace = checkReplace.Checked;
+        }
     }
 }

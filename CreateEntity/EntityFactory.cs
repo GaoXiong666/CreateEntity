@@ -15,23 +15,24 @@ namespace CreateEntity
     public class EntityFactory
     {
         private readonly IDB db;
-        private  CancellationTokenSource _cts;
+        private readonly CancellationTokenSource _cts;
+        private List<string> filesName;
 
         public EntityFactory(DataBaseType type)
         {
-            if (type == DataBaseType.Oracle)
+            switch (type)
             {
-                db = new Oracle();
-            }
-            else if (type == DataBaseType.SqlServer)
-            {
-                db = new SqlServer();
-            }
-            else
-            {
-                throw new Exception("此数据库功能暂未实现");
+                case DataBaseType.Oracle:
+                    db = new Oracle();
+                    break;
+                case DataBaseType.SqlServer:
+                    db = new SqlServer();
+                    break;
+                default:
+                    throw new Exception("此数据库功能暂未实现");
             }
             _cts = new CancellationTokenSource();
+            Init();
         }
 
         public void Create(ProgressBar pgb)
@@ -47,8 +48,12 @@ namespace CreateEntity
                 {
                     token.ThrowIfCancellationRequested();//申请取消
 
-                    List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i]);
-                    CodeGenerator.BuildEntityClass(tables[i], tableColumn);
+                    if (Helper.IsReplace||
+                        filesName.FindIndex(f => f.Equals(tables[i].CSharpName + ".cs")) == -1)
+                    {
+                        List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i]);
+                        CodeGenerator.BuildEntityClass(tables[i], tableColumn);
+                    }
 
                     //汇报进度
                     pgb.Value = i + 1;
@@ -60,6 +65,20 @@ namespace CreateEntity
         {
             if (_cts != null)
                 _cts.Cancel();
+        }
+
+        public void Init()
+        {
+            filesName = new List<string>();
+            if (!Helper.IsReplace)
+            {
+                DirectoryInfo infos = new DirectoryInfo(Helper.path);
+                FileInfo[] files = infos.GetFiles();
+                foreach(var file in files)
+                {
+                    filesName.Add(file.Name);
+                }
+            }
         }
     }
 }

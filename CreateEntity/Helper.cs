@@ -12,7 +12,10 @@ namespace CreateEntity
         public static string nameSpace;
         public static string path;
         public static string conStr;
-        public static string[] parameter; 
+        /// <summary>
+        /// 是否替换现有文件,true替换,false不替换
+        /// </summary>
+        public static bool IsReplace = false;
 
         /// <summary>
         /// 将首字母和带 _ 后第一个字母 转换成大写

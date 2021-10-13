@@ -40,13 +40,15 @@ namespace CreateEntity
             this.testConBtn = new System.Windows.Forms.Button();
             this.lable4 = new System.Windows.Forms.Label();
             this.NameSpace = new System.Windows.Forms.TextBox();
+            this.checkReplace = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(232, 371);
+            this.button1.Location = new System.Drawing.Point(180, 315);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 54);
+            this.button1.Size = new System.Drawing.Size(89, 46);
             this.button1.TabIndex = 0;
             this.button1.Text = "开 始";
             this.button1.UseVisualStyleBackColor = true;
@@ -55,44 +57,49 @@ namespace CreateEntity
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 70);
+            this.label1.Location = new System.Drawing.Point(17, 60);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 20);
+            this.label1.Size = new System.Drawing.Size(71, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "连接字符串:";
             // 
             // ConStr
             // 
-            this.ConStr.Location = new System.Drawing.Point(22, 98);
+            this.ConStr.Location = new System.Drawing.Point(17, 83);
+            this.ConStr.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.ConStr.Multiline = true;
             this.ConStr.Name = "ConStr";
             this.ConStr.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConStr.Size = new System.Drawing.Size(525, 112);
+            this.ConStr.Size = new System.Drawing.Size(409, 96);
             this.ConStr.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 24);
+            this.label2.Location = new System.Drawing.Point(17, 20);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 20);
+            this.label2.Size = new System.Drawing.Size(47, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "数据库:";
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Location = new System.Drawing.Point(86, 21);
+            this.comboBox1.Location = new System.Drawing.Point(67, 18);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(112, 28);
+            this.comboBox1.Size = new System.Drawing.Size(88, 25);
             this.comboBox1.TabIndex = 4;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(131, 219);
+            this.button2.Location = new System.Drawing.Point(102, 186);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
+            this.button2.Size = new System.Drawing.Size(73, 25);
             this.button2.TabIndex = 6;
             this.button2.Text = "选择路径";
             this.button2.UseVisualStyleBackColor = true;
@@ -101,9 +108,10 @@ namespace CreateEntity
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 223);
+            this.label3.Location = new System.Drawing.Point(17, 190);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 20);
+            this.label3.Size = new System.Drawing.Size(83, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "生成文件路径:";
             // 
@@ -111,18 +119,20 @@ namespace CreateEntity
             // 
             this.txtPath.BackColor = System.Drawing.SystemColors.Control;
             this.txtPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPath.Location = new System.Drawing.Point(22, 254);
+            this.txtPath.Location = new System.Drawing.Point(17, 216);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
             this.txtPath.ReadOnly = true;
-            this.txtPath.Size = new System.Drawing.Size(525, 111);
+            this.txtPath.Size = new System.Drawing.Size(408, 71);
             this.txtPath.TabIndex = 9;
             // 
             // testConBtn
             // 
-            this.testConBtn.Location = new System.Drawing.Point(116, 66);
+            this.testConBtn.Location = new System.Drawing.Point(90, 56);
+            this.testConBtn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.testConBtn.Name = "testConBtn";
-            this.testConBtn.Size = new System.Drawing.Size(94, 29);
+            this.testConBtn.Size = new System.Drawing.Size(73, 25);
             this.testConBtn.TabIndex = 10;
             this.testConBtn.Text = "测试连接";
             this.testConBtn.UseVisualStyleBackColor = true;
@@ -131,24 +141,38 @@ namespace CreateEntity
             // lable4
             // 
             this.lable4.AutoSize = true;
-            this.lable4.Location = new System.Drawing.Point(232, 24);
+            this.lable4.Location = new System.Drawing.Point(180, 20);
+            this.lable4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lable4.Name = "lable4";
-            this.lable4.Size = new System.Drawing.Size(73, 20);
+            this.lable4.Size = new System.Drawing.Size(59, 17);
             this.lable4.TabIndex = 11;
             this.lable4.Text = "命名空间:";
             // 
             // NameSpace
             // 
-            this.NameSpace.Location = new System.Drawing.Point(311, 22);
+            this.NameSpace.Location = new System.Drawing.Point(242, 19);
+            this.NameSpace.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.NameSpace.Name = "NameSpace";
-            this.NameSpace.Size = new System.Drawing.Size(224, 27);
+            this.NameSpace.Size = new System.Drawing.Size(175, 23);
             this.NameSpace.TabIndex = 12;
+            // 
+            // checkReplace
+            // 
+            this.checkReplace.AutoSize = true;
+            this.checkReplace.Location = new System.Drawing.Point(17, 293);
+            this.checkReplace.Name = "checkReplace";
+            this.checkReplace.Size = new System.Drawing.Size(99, 21);
+            this.checkReplace.TabIndex = 13;
+            this.checkReplace.Text = "替换现有文件";
+            this.checkReplace.UseVisualStyleBackColor = true;
+            this.checkReplace.CheckedChanged += new System.EventHandler(this.checkReplace_CheckedChanged);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 434);
+            this.ClientSize = new System.Drawing.Size(436, 369);
+            this.Controls.Add(this.checkReplace);
             this.Controls.Add(this.NameSpace);
             this.Controls.Add(this.lable4);
             this.Controls.Add(this.testConBtn);
@@ -160,6 +184,7 @@ namespace CreateEntity
             this.Controls.Add(this.ConStr);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -184,6 +209,7 @@ namespace CreateEntity
         private System.Windows.Forms.Button testConBtn;
         private System.Windows.Forms.Label lable4;
         private System.Windows.Forms.TextBox NameSpace;
+        private System.Windows.Forms.CheckBox checkReplace;
     }
 }
 
