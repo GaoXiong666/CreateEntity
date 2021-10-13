@@ -5,7 +5,7 @@
   
 EFCore本身自带生成实体类功能，教程参考[这里](https://www.cnblogs.com/gaoxiong666/p/15018956.html)。由于生成出来的实体是在Context类OnModelCreating方法里加映射，表多的话代码会巨多，而且实体字段没有注释，我更喜欢用特性约束，且加注释，于是本生成器诞生，是我喜欢的模样。
 ## 效果展示
-![图片](https://github.com/GaoXiong666/CreateEntity/blob/main/Image/123.png)
+![image](https://github.com/GaoXiong666/CreateEntity/blob/main/Image/123.png)
 ## 更新日志
 2021.07.09--实现了Oracle数据库的实体类生成  
 2021.10.10--实现了SqlServer数据库的实体类生成  
