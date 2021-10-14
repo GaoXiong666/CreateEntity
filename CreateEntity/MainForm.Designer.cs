@@ -41,11 +41,13 @@ namespace CreateEntity
             this.lable4 = new System.Windows.Forms.Label();
             this.NameSpace = new System.Windows.Forms.TextBox();
             this.checkReplace = new System.Windows.Forms.CheckBox();
+            this.checkDbContext = new System.Windows.Forms.CheckBox();
+            this.textDbContext = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(180, 315);
+            this.button1.Location = new System.Drawing.Point(180, 322);
             this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(89, 46);
@@ -167,11 +169,32 @@ namespace CreateEntity
             this.checkReplace.UseVisualStyleBackColor = true;
             this.checkReplace.CheckedChanged += new System.EventHandler(this.checkReplace_CheckedChanged);
             // 
+            // checkDbContext
+            // 
+            this.checkDbContext.AutoSize = true;
+            this.checkDbContext.Location = new System.Drawing.Point(122, 293);
+            this.checkDbContext.Name = "checkDbContext";
+            this.checkDbContext.Size = new System.Drawing.Size(92, 21);
+            this.checkDbContext.TabIndex = 14;
+            this.checkDbContext.Text = "生成上下文-";
+            this.checkDbContext.UseVisualStyleBackColor = true;
+            this.checkDbContext.CheckedChanged += new System.EventHandler(this.checkDbContext_CheckedChanged);
+            // 
+            // textDbContext
+            // 
+            this.textDbContext.Enabled = false;
+            this.textDbContext.Location = new System.Drawing.Point(211, 293);
+            this.textDbContext.Name = "textDbContext";
+            this.textDbContext.Size = new System.Drawing.Size(100, 23);
+            this.textDbContext.TabIndex = 15;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 369);
+            this.ClientSize = new System.Drawing.Size(436, 380);
+            this.Controls.Add(this.textDbContext);
+            this.Controls.Add(this.checkDbContext);
             this.Controls.Add(this.checkReplace);
             this.Controls.Add(this.NameSpace);
             this.Controls.Add(this.lable4);
@@ -210,6 +233,8 @@ namespace CreateEntity
         private System.Windows.Forms.Label lable4;
         private System.Windows.Forms.TextBox NameSpace;
         private System.Windows.Forms.CheckBox checkReplace;
+        private System.Windows.Forms.CheckBox checkDbContext;
+        private System.Windows.Forms.TextBox textDbContext;
     }
 }
 

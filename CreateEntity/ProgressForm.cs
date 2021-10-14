@@ -31,11 +31,10 @@ namespace CreateEntity
             }
             catch (OperationCanceledException)
             {
-                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
         }
@@ -44,6 +43,7 @@ namespace CreateEntity
         {
             if (_factory != null)
                 _factory.Cancel();
+            Close();
         }
         private void button2_Click(object sender, EventArgs e)
         {

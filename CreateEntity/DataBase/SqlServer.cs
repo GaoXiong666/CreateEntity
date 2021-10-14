@@ -55,8 +55,7 @@ namespace CreateEntity.DataBase
                                             left join syscomments e on a.cdefault=e.id
                                             left join sys.extended_properties g on a.id=G.major_id and a.colid=g.minor_id  
                                             left join sys.extended_properties f on d.id=f.major_id and f.minor_id=0
-                                            where d.name='{table.Name}'
-                                            order by 主键 desc", (SqlConnection)conn);
+                                            where d.name='{table.Name}'", (SqlConnection)conn);
             using SqlDataReader reder = com.ExecuteReader();
 
             List<TableColumn> tableColumn = new List<TableColumn>();

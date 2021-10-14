@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace {ModelsNamespace}
+namespace {Namespace}
 {
-    [Table("{DbTableName}")]
-	public class {ModelClassName}
+    [Table("{TableName}")]
+	public class {ClassName}
 	{
-{ModelProperties}
+{Properties}
 	}
 }

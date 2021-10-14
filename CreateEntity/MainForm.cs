@@ -25,27 +25,39 @@ namespace CreateEntity
             Helper.nameSpace = NameSpace.Text.Trim();
             Helper.path = txtPath.Text.Trim();
             Helper.conStr = ConStr.Text.Trim();
+            Helper.DbContextName = textDbContext.Text.Trim();
 
+            #region 验证
             if (string.IsNullOrEmpty(Helper.nameSpace))
             {
-                MessageBox.Show("请填写命名空间", "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("请填写命名空间", Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (string.IsNullOrEmpty(Helper.path))
             {
-                MessageBox.Show("请填写连接字符串", "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("请填写连接字符串", Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (string.IsNullOrEmpty(Helper.conStr))
             {
-                MessageBox.Show("请选择生成路径", "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("请选择生成路径", Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
+            if (string.IsNullOrEmpty(Helper.conStr))
+            {
+                MessageBox.Show("请选择生成路径", Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (Helper.IsDbContext && string.IsNullOrEmpty(Helper.DbContextName))
+            {
+                MessageBox.Show("请输入上下文名称", Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             if (!testCon())
             {
                 return;
             }
+            #endregion
 
             //隐藏自己
             Hide();
@@ -79,7 +91,7 @@ namespace CreateEntity
             catch (Exception e)
             {
                 ok = false;
-                MessageBox.Show("连接超时，" + e.Message, "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("连接超时，" + e.Message, Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return ok;
         }
@@ -89,7 +101,7 @@ namespace CreateEntity
             Helper.conStr = ConStr.Text.Trim();
             if (testCon())
             {
-                MessageBox.Show("测试连接成功", "实体生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("测试连接成功", Helper.lable, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -108,6 +120,12 @@ namespace CreateEntity
         private void checkReplace_CheckedChanged(object sender, EventArgs e)
         {
             Helper.IsReplace = checkReplace.Checked;
+        }
+
+        private void checkDbContext_CheckedChanged(object sender, EventArgs e)
+        {
+            Helper.IsDbContext = checkDbContext.Checked;
+            textDbContext.Enabled= checkDbContext.Checked;
         }
     }
 }

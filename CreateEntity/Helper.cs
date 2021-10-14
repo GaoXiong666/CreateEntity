@@ -8,6 +8,7 @@ namespace CreateEntity
 {
     public static class Helper
     {
+        public const string lable = "实体生成器";
         public static DataBaseType dbType;
         public static string nameSpace;
         public static string path;
@@ -16,6 +17,11 @@ namespace CreateEntity
         /// 是否替换现有文件,true替换,false不替换
         /// </summary>
         public static bool IsReplace = false;
+        /// <summary>
+        /// 是否生成上下文,true生成,false不生成
+        /// </summary>
+        public static bool IsDbContext = false;
+        public static string DbContextName;
 
         /// <summary>
         /// 将首字母和带 _ 后第一个字母 转换成大写
@@ -36,9 +42,7 @@ namespace CreateEntity
             }
             else
             {
-                //Oracle命名默认全部大写，与SqlServer不同
-                char[] chr = dbType == DataBaseType.SqlServer? str.ToCharArray()
-                                                              :str.ToLower().ToCharArray();
+                char[] chr = str.ToLower().ToCharArray();
                 if (chr[0] >= 'a' && chr[0] <= 'z')
                 {
                     // 利用ASCII码实现首字母大写

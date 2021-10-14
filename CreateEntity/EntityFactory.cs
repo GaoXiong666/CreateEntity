@@ -41,7 +41,7 @@ namespace CreateEntity
             using (DbConnection conn = Helper.GetDbConnection())
             {
                 conn.Open();
-                List<Table> tables = db.GetTableAll(conn);
+                List<Table> tables = db.GetTableAll(conn).OrderBy(i => i.CSharpName).ToList();
 
                 pgb.Maximum = tables.Count();
                 for (int i = 0; i < tables.Count(); i++)
@@ -49,14 +49,22 @@ namespace CreateEntity
                     token.ThrowIfCancellationRequested();//申请取消
 
                     if (Helper.IsReplace||
-                        filesName.FindIndex(f => f.Equals(tables[i].CSharpName + ".cs")) == -1)
+                        filesName.FindIndex(f => f==(tables[i].CSharpName + ".cs").ToLower()) == -1)
                     {
-                        List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i]);
+                        List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i])
+                                                          .OrderBy(o => o.ConstraintType)
+                                                          .ThenBy(o => o.CSharpName)
+                                                          .ToList();
                         CodeGenerator.BuildEntityClass(tables[i], tableColumn);
                     }
 
                     //汇报进度
                     pgb.Value = i + 1;
+                }
+                //生成上下文
+                if (Helper.IsDbContext)
+                {
+                    CodeGenerator.BuildEFCoreDbContext(tables);
                 }
             }
         }
@@ -76,7 +84,7 @@ namespace CreateEntity
                 FileInfo[] files = infos.GetFiles();
                 foreach(var file in files)
                 {
-                    filesName.Add(file.Name);
+                    filesName.Add(file.Name.ToLower());
                 }
             }
         }

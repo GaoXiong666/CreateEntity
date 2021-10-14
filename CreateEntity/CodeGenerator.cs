@@ -89,10 +89,10 @@ namespace CreateEntity
 
             string content = GetTemplateContext("EntityTemplate.txt");
             
-            content = content.Replace("{ModelsNamespace}", Helper.nameSpace)
-               .Replace("{ModelClassName}", table.CSharpName)
-               .Replace("{DbTableName}", table.Name)
-               .Replace("{ModelProperties}", sb.ToString());
+            content = content.Replace("{Namespace}", Helper.nameSpace)
+               .Replace("{ClassName}", table.CSharpName)
+               .Replace("{TableName}", table.Name)
+               .Replace("{Properties}", sb.ToString());
 
             string path = Helper.path + "\\" + table.CSharpName + ".cs";
             WriteAndSave(path, content);
@@ -107,17 +107,17 @@ namespace CreateEntity
             StringBuilder sb = new StringBuilder();
             foreach(var table in tables)
             {
-                string name = table.CSharpName;
-                sb.AppendLine($"\t\tpublic virtual DbSet<{name}> {name} " + "{ get; set; }");
+                sb.AppendLine($"\t\tpublic virtual DbSet<{table.CSharpName}> {table.CSharpName} " + "{ get; set; }");
             }
 
             string content = GetTemplateContext("EFCoreDbContext.txt");
 
             content = content.Replace("{Namespace}", Helper.nameSpace)
-               .Replace("{ClassName}", "")
+               .Replace("{ClassName}", Helper.DbContextName)
+               .Replace("{ConStr}", $"optionsBuilder.Use{Helper.dbType}(\"{Helper.conStr}\");")
                .Replace("{Tables}", sb.ToString());
 
-            string path = Helper.path + "\\" + "" + ".cs";
+            string path = Helper.path + $"\\{Helper.DbContextName}.cs";
             WriteAndSave(path, content);
         }
 
