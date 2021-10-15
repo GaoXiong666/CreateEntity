@@ -52,7 +52,7 @@ namespace CreateEntity
                         filesName.FindIndex(f => f==(tables[i].CSharpName + ".cs").ToLower()) == -1)
                     {
                         List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i])
-                                                          .OrderBy(o => o.ConstraintType)
+                                                          .OrderByDescending(o => o.ConstraintType)
                                                           .ThenBy(o => o.CSharpName)
                                                           .ToList();
                         CodeGenerator.BuildEntityClass(tables[i], tableColumn);
