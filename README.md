@@ -10,6 +10,7 @@ EFCore本身自带生成实体类功能，教程参考[这里](https://www.cnblo
 2.目前支持的数据库只有Oracle和SqlServer，扩展别的库在DataBase文件夹实现接口就行  
 3.目前待优化的地方，是在循环里查询，这样第一次会很慢，还缺一个批量查询，减少查数据库的次数
 ## 效果展示
+图就在上面Image文件夹里，如果看不见可能需要挂全局代理  
 ![image](https://github.com/GaoXiong666/CreateEntity/blob/main/Image/123.png)
 ## 更新日志
 2021.07.09--新增Oracle数据库的实体类生成  
