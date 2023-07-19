@@ -1,12 +1,9 @@
 ﻿using CreateEntity.DataBase;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -48,8 +45,8 @@ namespace CreateEntity
                 {
                     token.ThrowIfCancellationRequested();//申请取消
 
-                    if (Helper.IsReplace||
-                        filesName.FindIndex(f => f==(tables[i].CSharpName + ".cs").ToLower()) == -1)
+                    if (Helper.IsReplace ||
+                        filesName.FindIndex(f => f == (tables[i].CSharpName + ".cs").ToLower()) == -1)
                     {
                         List<TableColumn> tableColumn = db.GetTableColumn(conn, tables[i])
                                                           .OrderByDescending(o => o.ConstraintType)
@@ -82,7 +79,7 @@ namespace CreateEntity
             {
                 DirectoryInfo infos = new DirectoryInfo(Helper.path);
                 FileInfo[] files = infos.GetFiles();
-                foreach(var file in files)
+                foreach (var file in files)
                 {
                     filesName.Add(file.Name.ToLower());
                 }

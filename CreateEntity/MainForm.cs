@@ -1,8 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Data.Common;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CreateEntity
@@ -125,7 +122,7 @@ namespace CreateEntity
         private void checkDbContext_CheckedChanged(object sender, EventArgs e)
         {
             Helper.IsDbContext = checkDbContext.Checked;
-            textDbContext.Enabled= checkDbContext.Checked;
+            textDbContext.Enabled = checkDbContext.Checked;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace CreateEntity
             }
 
             string content = GetTemplateContext("EntityTemplate.txt");
-            
+
             content = content.Replace("{Namespace}", Helper.nameSpace)
                .Replace("{ClassName}", table.CSharpName)
                .Replace("{TableName}", table.Name)
@@ -105,7 +105,7 @@ namespace CreateEntity
         public static void BuildEFCoreDbContext(List<Table> tables)
         {
             StringBuilder sb = new StringBuilder();
-            foreach(var table in tables)
+            foreach (var table in tables)
             {
                 sb.AppendLine($"\t\tpublic virtual DbSet<{table.CSharpName}> {table.CSharpName} " + "{ get; set; }");
             }
